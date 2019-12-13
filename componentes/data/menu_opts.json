@@ -17,7 +17,31 @@
             "ruta" : "card",
             "icon" : "pets",
             "texto": "Kawaii Cards",
+            "color": "Grey"
+        },
+        {
+            "ruta" : "animatedContainer",
+            "icon" : "star",
+            "texto": "Container Animado!",
             "color": "Yellow"
+        },
+        {
+            "ruta" : "inputs",
+            "icon" : "input",
+            "texto": "Inputs",
+            "color": "Black"
+        },
+        {
+            "ruta" : "slider",
+            "icon" : "slideshow",
+            "texto": "Sliders",
+            "color": "Purple"
+        },
+        {
+            "ruta" : "listViewPage",
+            "icon" : "format_list_bulleted",
+            "texto": "Ver Listas",
+            "color": "Lightblue"
         }
     ]
 }

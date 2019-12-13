@@ -1,4 +1,3 @@
-import 'package:componentes/src/pages/alertPage.dart';
 import 'package:flutter/material.dart';
 import 'package:componentes/src/utils/iconToString.dart';
 import 'package:componentes/src/providers/menuProvider.dart';
