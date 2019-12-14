@@ -26,7 +26,7 @@ class _SliderPageState extends State<SliderPage> {
             // Expanded(
             //   child: _createImage()
             //   ),
-            _createImage()
+            _createImage(),
           ],
         ),
         padding: EdgeInsets.only(top: 30.0),
@@ -37,7 +37,7 @@ class _SliderPageState extends State<SliderPage> {
   Widget _createSlider() {
     return Slider(
       min: 100.0,
-      max: 550.0,
+      max: 450.0,
       value: _sliderValue,
       onChanged: (_isSelected)
           ? (value) => setState(() {
