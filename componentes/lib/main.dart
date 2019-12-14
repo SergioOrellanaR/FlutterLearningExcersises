@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
           const Locale('en'), // English
           const Locale('es', 'CL'), // Español
   ],
-      
     );
   }
 }
