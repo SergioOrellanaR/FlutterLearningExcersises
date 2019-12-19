@@ -9,6 +9,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    provider.getPopulars();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -40,7 +43,7 @@ class HomePage extends StatelessWidget {
 
   Widget _cardSwiper() {
     return FutureBuilder(
-      future: MoviesProvider().getNowPlayingInCinema(),
+      future: provider.getNowPlayingInCinema(),
       builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
         if (snapshot.hasData) {
           return CardSwiper(
@@ -63,15 +66,16 @@ class HomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(left: 20.0),
-            child: Text("Populares", style: Theme.of(context).textTheme.subhead)),
+              padding: EdgeInsets.only(left: 20.0),
+              child: Text("Populares",
+                  style: Theme.of(context).textTheme.subhead)),
           SizedBox(height: 20.0),
-          FutureBuilder(
-            future: MoviesProvider().getPopulars(),
+          StreamBuilder(
+            stream: provider.popularsStream,
             builder:
                 (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
               if (snapshot.hasData) {
-                return HorizontalMovie(movies: snapshot.data);
+                return HorizontalMovie(movies: snapshot.data, nextPage: provider.getPopulars,);
               } else {
                 return Center(child: new CircularProgressIndicator());
               }

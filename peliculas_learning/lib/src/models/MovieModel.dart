@@ -82,7 +82,7 @@ class Movie
   NetworkImage getPosterImg()
   {
     String url;
-    String defaultUrlImage = "https://image.tmdb.org/t/p/w500/";
+    String defaultUrlImage = "https://image.tmdb.org/t/p/w500";
 
     if ( posterPath == null)
     {
@@ -97,7 +97,20 @@ class Movie
     
   }
 
+  NetworkImage getBackdropPath()
+  {
+    String url;
+    String defaultUrlImage = "https://image.tmdb.org/t/p/w500";
 
+    if ( posterPath == null)
+    {
+      url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdA750p7y_ICrWtWyaE7Ziyj5wKIqO-eimw6J930z8cQfBo8zr&s";
+    }
+    else
+    {
+      url = defaultUrlImage+backdropPath;
+    }
 
-
+    return NetworkImage(url);
+  }
 }
