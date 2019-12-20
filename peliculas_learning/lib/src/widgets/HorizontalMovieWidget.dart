@@ -72,20 +72,26 @@ class HorizontalMovie extends StatelessWidget {
   // }
 
   Widget _createPopularCard(BuildContext context, Movie movie) {
+
+    movie.uniqueId = "${movie.id}_horizontal";
+
     final card = Container(
         margin: EdgeInsets.only(right: 15.0),
         child: Column(
           children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: FadeInImage(
-                image: movie.getPosterImg(),
-                placeholder: AssetImage("assets/loadingGifs/GrayCat.gif"),
-                //Setea un tamaño fijo de placeholder
-                height: 160.0,
-                fit: BoxFit.none,
-                //Iguala tamaño de imagen de placeholder a tamaño de imagen.
-                //// fit: BoxFit.cover,
+            Hero(
+              tag: movie.uniqueId,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: FadeInImage(
+                  image: movie.getPosterImg(),
+                  placeholder: AssetImage("assets/loadingGifs/GrayCat.gif"),
+                  //Setea un tamaño fijo de placeholder
+                  height: 160.0,
+                  fit: BoxFit.contain,
+                  //Iguala tamaño de imagen de placeholder a tamaño de imagen.
+                  //// fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(
@@ -102,7 +108,7 @@ class HorizontalMovie extends StatelessWidget {
     return GestureDetector(
       child: card,
       onTap: () {
-        Navigator.pushNamed(context, "movieDetail", arguments: movie );
+        Navigator.pushNamed(context, "movieDetail", arguments: movie);
       },
     );
   }

@@ -74,23 +74,28 @@ class MoviesProvider {
     }
   }
 
-  Future<List<Actor>> getCast(int movieId) async
-  {
+  Future<List<Actor>> getCast(int movieId) async {
     String idToString = movieId.toString();
     String endpoint = "3/movie/$idToString/credits";
 
-    final url = Uri.https(_url, endpoint, {
-      "api_key": _apikey,
-      "language": _language
-    });
+    final url =
+        Uri.https(_url, endpoint, {"api_key": _apikey, "language": _language});
 
     final response = await http.get(url);
     final decodedData = json.decode(response.body);
 
-
     Cast cast = Cast.fromJsonList(decodedData["cast"]);
 
     return cast.actors;
+  }
 
+  Future<List<Movie>> searchMovie(String query) async {
+
+    String endpoint = "3/search/movie";
+
+    final url = Uri.https(_url, endpoint,
+        {"api_key": _apikey, "language": _language, "query": query});
+
+    return callMoviesGetRest(url);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas_learning/src/models/MovieModel.dart';
 import 'package:peliculas_learning/src/providers/moviesProvider.dart';
+import 'package:peliculas_learning/src/search/SearchDelegate.dart';
 import 'package:peliculas_learning/src/widgets/CardSwiperWidget.dart';
 import 'package:peliculas_learning/src/widgets/HorizontalMovieWidget.dart';
 
@@ -18,7 +19,7 @@ class HomePage extends StatelessWidget {
         title: Text("Películas"),
         backgroundColor: Colors.blueGrey,
         actions: <Widget>[
-          _buildIconButton(),
+          _buildIconButton(context),
           SizedBox(
             width: 120.0,
           )
@@ -34,10 +35,13 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  IconButton _buildIconButton() {
+  IconButton _buildIconButton(BuildContext context ) {
     return IconButton(
       icon: Icon(Icons.search),
-      onPressed: () {},
+      onPressed: () 
+      {
+        showSearch(context: context, delegate: MovieSearch()/* , query: "Mensaje predeterminado" */);
+      },
     );
   }
 

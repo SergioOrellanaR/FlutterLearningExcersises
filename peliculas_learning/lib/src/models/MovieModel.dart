@@ -28,6 +28,10 @@ class Movies
 
 class Movie 
 {
+  //Property inventada
+  String uniqueId;
+
+  //Property Json
   double popularity;
   int voteCount;
   bool video;
@@ -108,7 +112,12 @@ class Movie
     }
     else
     {
-      url = defaultUrlImage+backdropPath;
+      String complement = backdropPath;
+      if (backdropPath == null)
+      {
+        complement = posterPath;
+      }
+      url = defaultUrlImage+complement;
     }
 
     return NetworkImage(url);
