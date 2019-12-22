@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Diseños',
       debugShowCheckedModeBanner: false,
       routes: routeMap(),
-      initialRoute: "beautifulPage",
+      initialRoute: "scrollPage",
     );
   }
 }
