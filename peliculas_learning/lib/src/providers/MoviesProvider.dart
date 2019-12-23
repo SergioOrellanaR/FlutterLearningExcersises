@@ -24,6 +24,7 @@ class MoviesProvider {
     _popularsStreamController?.close();
   }
 
+
   Future<List<Movie>> getNowPlayingInCinema() async {
     String endpoint = "3/movie/now_playing";
 

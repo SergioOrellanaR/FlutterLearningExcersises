@@ -3,11 +3,12 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_reader_learning/src/models/ScanModel.dart';
 import 'package:sqflite/sqflite.dart';
+export 'package:qr_reader_learning/src/models/ScanModel.dart';
 
 class DBProvider
 {
   static Database _database;
-  static final DBProvider db = DBProvider._private();
+  static final DBProvider connection = DBProvider._private();
 
   DBProvider._private();
 
@@ -147,7 +148,7 @@ class DBProvider
     return response;
   }
   //Borra todos los scans
-  Future<int> deleteAll(int id) async
+  Future<int> deleteAll() async
   {
     final datab = await database;
     int  response = await datab.delete("Scans");

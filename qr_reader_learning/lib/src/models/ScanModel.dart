@@ -1,3 +1,6 @@
+
+import 'package:latlong/latlong.dart';
+
 class ScanModel {
   int id;
   String type;
@@ -26,4 +29,28 @@ class ScanModel {
         "type": type,
         "value": value,
       };
+
+  LatLng getLatLng()
+  {
+    List<String> latlon = value.substring(4).split(",");
+    double lat;
+    double lon;
+    try
+    {
+      lat = double.parse(latlon[0]);
+      lon = double.parse(latlon[1]);
+    }
+    catch(e)
+    {
+      lat = 0.0;
+      lon = 0.0;
+    }
+    
+    return LatLng(lat,lon);
+  }
+  
+  @override
+  String toString() {
+  return "Id: $id, Tipo: $type";
+   }
 }
