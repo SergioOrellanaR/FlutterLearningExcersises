@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bloc_forms/src/models/ProductModel.dart';
 import 'package:http/http.dart' as http;
+import 'package:mime_type/mime_type.dart';
+import 'package:http_parser/http_parser.dart';
 
 class ProductsProvider {
   final String _url = "https://flutter-learning-fb.firebaseio.com";
@@ -67,4 +70,52 @@ class ProductsProvider {
     return operationSucceed;
 
   }
+
+  Future<bool> updateProduct(ProductModel product) async {
+
+    String urlExtension = "/Products/${product.id}.json";
+    final productUrl = '$_url' + urlExtension;
+
+    http.Response response =
+        await http.put(productUrl, body: productModelToJson(product));
+
+    final decodedData = json.decode(response.body);
+
+    print(decodedData);
+
+    return true;
+  }
+
+  Future<String> uploadImage(File image) async
+  {
+      final url = Uri.parse("https://api.cloudinary.com/v1_1/dwpt82kgy/image/upload?upload_preset=zjhxoxxd");
+
+      final mimeType = mime(image.path).split("/");
+      
+      final imageUploadRequest = http.MultipartRequest(
+        "POST",
+        url
+      );
+
+      final file = await http.MultipartFile.fromPath("file", image.path, contentType: MediaType(mimeType[0], mimeType[1]));
+
+      imageUploadRequest.files.add(file);
+
+      final streamResponse = await imageUploadRequest.send();
+
+      final response = await http.Response.fromStream(streamResponse);
+
+      if( response.statusCode == 200 || response.statusCode == 201)
+      {
+        final responseData = json.decode(response.body);
+        return responseData["secure_url"];
+      }
+      else
+      {
+        return null;
+      }
+  }
+
+
+  
 }
