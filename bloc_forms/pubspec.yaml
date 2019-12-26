@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  shared_preferences:
   mime_type: ^0.2.4
   image_picker: ^0.6.2+3
   http:

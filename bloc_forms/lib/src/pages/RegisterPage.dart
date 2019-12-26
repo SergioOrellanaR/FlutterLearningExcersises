@@ -5,9 +5,9 @@ import 'package:bloc_forms/src/providers/UserProvider.dart';
 import 'package:bloc_forms/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class RegisterPage extends StatelessWidget {
 
-  final userProvider = new UserProvider();
+  final UserProvider userProvider = new UserProvider();
 
 
   @override
@@ -111,7 +111,7 @@ class LoginPage extends StatelessWidget {
                 ],
               ),
               child: Column(children: <Widget>[
-                Text("Ingreso", style: TextStyle(fontSize: 20.0)),
+                Text("Crear cuenta", style: TextStyle(fontSize: 20.0)),
                 SizedBox(
                   height: 60.0,
                 ),
@@ -204,15 +204,14 @@ class LoginPage extends StatelessWidget {
             ),
           ),
           shape: StadiumBorder(),
-          onPressed: snapshot.hasData ? () => _login(bloc, context) : null,
+          onPressed: snapshot.hasData ? () => _register(bloc, context) : null,
         );
       },
     );
   }
 
-  _login(LoginBloc bloc, BuildContext context) async
-  {
-    Map info = await userProvider.login(bloc.getEmail, bloc.getPassword);
+  _register(LoginBloc bloc, BuildContext context) async{
+    final info = await userProvider.createUser(bloc.getEmail, bloc.getPassword);
 
     if(info["ok"])
     {
@@ -222,13 +221,14 @@ class LoginPage extends StatelessWidget {
     {
       showAlert(context, info["message"]);
     }
+    
+    // Navigator.pushReplacementNamed(context, 'home');
   }
 
-  _signUp(BuildContext context) 
-  {
+  _signUp(BuildContext context) {
     return FlatButton(
-      child: Text("Crear cuenta"),
-      onPressed: () => Navigator.pushReplacementNamed(context, "register"),
+      child: Text("Regresar"),
+      onPressed: () => Navigator.pushReplacementNamed(context, "login"),
     );
   }
 }
