@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 
 class UserProvider {
 
-  String _apiKey = "AIzaSyB7D56-OeMIXZRBdD1YaXXwcsOKvcw83Go";
+  //TODO: Add firebase ApiKey
+  String _apiKey = "";
   final _prefs = new UserPreferences();
 
   Future<Map<String, dynamic>> createUser(String email, String password) async 

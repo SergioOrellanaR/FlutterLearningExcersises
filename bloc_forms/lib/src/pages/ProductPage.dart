@@ -1,7 +1,7 @@
 import 'dart:io';
-
+import 'package:bloc_forms/src/blocs/Provider.dart';
 import 'package:bloc_forms/src/models/ProductModel.dart';
-import 'package:bloc_forms/src/providers/ProductsProvider.dart';
+
 import 'package:bloc_forms/src/utils/utils.dart' as utils;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,14 +19,15 @@ class _ProductPageState extends State<ProductPage> {
 
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  ProductsBloc productsBloc;
   ProductModel product = new ProductModel();
   bool _saving = false;
-  ProductsProvider productProvider = new ProductsProvider();
   File photo;
 
   @override
   Widget build(BuildContext context) {
+    productsBloc = Provider.productsBloc(context);
+
     final ProductModel productData = ModalRoute.of(context).settings.arguments;
 
     if (productData != null) {
@@ -146,7 +147,7 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
-  void _submit() async{
+  void _submit() async {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
 
@@ -156,16 +157,15 @@ class _ProductPageState extends State<ProductPage> {
         _saving = true;
       });
 
-      if( photo != null)
-      {
-        product.photoUrl = await productProvider.uploadImage(photo);
+      if (photo != null) {
+        product.photoUrl = await productsBloc.uploadPhoto(photo);
       }
 
       if (product.id == null) {
-        productProvider.createProduct(product);
+        productsBloc.createProduct(product);
         message = "Registro creado";
       } else {
-        productProvider.updateProduct(product);
+        productsBloc.updateProduct(product);
         message = "Registro actualizado";
       }
 
@@ -206,12 +206,16 @@ class _ProductPageState extends State<ProductPage> {
         fit: BoxFit.contain,
       );
     } else {
-      return Image(
-        //Si foto tiene un valor muestra el path, pero si viene null, muestra el de los assets
-        image: AssetImage(photo?.path ?? "assets/no-image.png"),
-        height: 300.0,
-        fit: BoxFit.cover,
-      );
+      if (photo == null) {
+        return Image(
+          //Si foto tiene un valor muestra el path, pero si viene null, muestra el de los assets
+          image: AssetImage(photo?.path ?? "assets/no-image.png"),
+          height: 300.0,
+          fit: BoxFit.cover,
+        );
+      } else {
+        return Image.file(photo, height: 300.0, fit: BoxFit.cover);
+      }
     }
   }
 }

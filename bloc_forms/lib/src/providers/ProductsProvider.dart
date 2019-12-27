@@ -42,7 +42,9 @@ class ProductsProvider {
 
       final List<ProductModel> products = new List();
 
-      if (decodedData != null) {
+      
+
+      if (decodedData != null && decodedData['error'] == null) {
         decodedData.forEach((id, value) {
           ProductModel productTemp = ProductModel.fromJson(value);
           productTemp.id = id;
