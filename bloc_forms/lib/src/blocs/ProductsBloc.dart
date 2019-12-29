@@ -6,6 +6,7 @@ import 'package:rxdart/rxdart.dart';
 
 class ProductsBloc
 {
+  //
   final _productsController = new BehaviorSubject<List<ProductModel>>();
   final _loadingController = new BehaviorSubject<bool>();
 
